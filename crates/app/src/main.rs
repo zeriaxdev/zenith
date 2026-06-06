@@ -1199,6 +1199,8 @@ impl Render for Launcher {
 }
 
 use gpui::{actions, KeyBinding, Menu, MenuItem};
+use gpui_component::Root;
+use gpui_component_assets::Assets;
 
 actions!(zenith, [Quit]);
 
@@ -1215,7 +1217,11 @@ fn main() {
             .prefix("zenith"),
     );
 
-    application().run(|cx: &mut App| {
+    application().with_assets(Assets).run(|cx: &mut App| {
+        // Initialize gpui-component (theme, assets, fonts). Must run before
+        // any of its widgets are used.
+        gpui_component::init(cx);
+
         // Quit support: app menu + ⌘Q, and quit when the last window closes.
         cx.on_action(quit);
         cx.bind_keys([KeyBinding::new("cmd-q", Quit, None)]);
@@ -1255,13 +1261,15 @@ fn main() {
                 window_bounds: Some(WindowBounds::Windowed(bounds)),
                 ..Default::default()
             },
-            |_, cx| {
-                cx.new(|cx| {
+            |window, cx| {
+                let view = cx.new(|cx| {
                     let mut launcher = Launcher::new();
                     launcher.start_tick(cx);
                     launcher.load_versions(cx);
                     launcher
-                })
+                });
+                // gpui-component requires the window's top-level view be a Root.
+                cx.new(|cx| Root::new(view, window, cx))
             },
         )
         .unwrap();

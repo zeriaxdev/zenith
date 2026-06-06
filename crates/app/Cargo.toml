@@ -13,6 +13,7 @@ sheen.workspace = true
 gpui.workspace = true
 gpui_platform.workspace = true
 gpui-component.workspace = true
+gpui-component-assets.workspace = true
 zenith-core.workspace = true
 zenith-net.workspace = true
 zenith-store.workspace = true
