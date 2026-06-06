@@ -6,6 +6,9 @@ target
 # macOS
 .DS_Store
 
+# Release bundles
+/dist
+
 # Local env / secrets (e.g. ZENITH_CLIENT_ID)
 .env
 .env.local
