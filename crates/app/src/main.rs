@@ -1198,6 +1198,14 @@ impl Render for Launcher {
     }
 }
 
+use gpui::{actions, KeyBinding, Menu, MenuItem};
+
+actions!(zenith, [Quit]);
+
+fn quit(_: &Quit, cx: &mut App) {
+    cx.quit();
+}
+
 fn main() {
     sheen::init_with(
         sheen::Logger::new()
@@ -1208,6 +1216,19 @@ fn main() {
     );
 
     application().run(|cx: &mut App| {
+        // Quit support: app menu + ⌘Q, and quit when the last window closes.
+        cx.on_action(quit);
+        cx.bind_keys([KeyBinding::new("cmd-q", Quit, None)]);
+        cx.set_menus(vec![
+            Menu::new("Zenith").items([MenuItem::action("Quit Zenith", Quit)]),
+        ]);
+        cx.on_window_closed(|cx, _window_id| {
+            if cx.windows().is_empty() {
+                cx.quit();
+            }
+        })
+        .detach();
+
         // Bundle IBM Plex Mono (what Zed's "Zed Plex Mono" is based on) so the
         // Console matches Zed's look without depending on a system install.
         let _ = cx.text_system().add_fonts(vec![

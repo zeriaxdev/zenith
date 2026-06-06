@@ -12,6 +12,7 @@ APP_NAME="Zenith"
 BIN_NAME="zenith-launcher"
 BUNDLE_ID="dev.zeriax.zenith"
 VERSION="${VERSION:-$(grep -m1 '^version' Cargo.toml | sed -E 's/.*"(.*)".*/\1/')}"
+SHORT_VERSION="${VERSION%%-*}" # CFBundleShortVersionString must be numeric x.y.z
 ARCH="$(uname -m)" # arm64 or x86_64
 
 echo "==> Building release ($ARCH) v$VERSION"
@@ -32,7 +33,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundleDisplayName</key><string>$APP_NAME</string>
     <key>CFBundleIdentifier</key><string>$BUNDLE_ID</string>
     <key>CFBundleVersion</key><string>$VERSION</string>
-    <key>CFBundleShortVersionString</key><string>$VERSION</string>
+    <key>CFBundleShortVersionString</key><string>$SHORT_VERSION</string>
     <key>CFBundleExecutable</key><string>$BIN_NAME</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>

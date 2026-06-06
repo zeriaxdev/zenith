@@ -8318,7 +8318,7 @@ dependencies = [
 
 [[package]]
 name = "zenith-core"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "md5",
  "serde",
@@ -8327,7 +8327,7 @@ dependencies = [
 
 [[package]]
 name = "zenith-launch"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "anyhow",
  "serde",
@@ -8340,7 +8340,7 @@ dependencies = [
 
 [[package]]
 name = "zenith-launcher"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "anyhow",
  "gpui",
@@ -8356,7 +8356,7 @@ dependencies = [
 
 [[package]]
 name = "zenith-net"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "anyhow",
  "serde",
@@ -8367,11 +8367,11 @@ dependencies = [
 
 [[package]]
 name = "zenith-store"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 
 [[package]]
 name = "zenith-ui"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "gpui",
  "gpui-component",
