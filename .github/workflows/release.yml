@@ -1,0 +1,47 @@
+name: Release
+
+# Free on public repos (unlimited Actions minutes, macOS included).
+# Runs only when you push a version tag like v0.2.0, or manually.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust nightly
+        run: |
+          rustup toolchain install nightly --profile minimal
+          rustup default nightly
+
+      - name: Ensure Metal toolchain
+        run: xcodebuild -downloadComponent MetalToolchain || true
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Bundle .app, .zip and .dmg
+        run: ./scripts/bundle.sh
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF_NAME:-manual-$(date +%s)}"
+          gh release create "$TAG" dist/*.dmg dist/*.zip \
+            --title "Zenith $TAG" \
+            --generate-notes \
+            || gh release upload "$TAG" dist/*.dmg dist/*.zip --clobber
