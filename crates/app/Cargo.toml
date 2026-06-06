@@ -1,0 +1,20 @@
+[package]
+name = "zenith-launcher"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "zenith-launcher"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+sheen.workspace = true
+gpui.workspace = true
+gpui_platform.workspace = true
+gpui-component.workspace = true
+zenith-core.workspace = true
+zenith-net.workspace = true
+zenith-store.workspace = true
+zenith-launch.workspace = true
+zenith-ui.workspace = true

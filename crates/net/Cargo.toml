@@ -1,0 +1,15 @@
+[package]
+name = "zenith-net"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "zenith_net"
+path = "src/lib.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ureq.workspace = true
+zenith-core.workspace = true

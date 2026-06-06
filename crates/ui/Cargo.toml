@@ -1,0 +1,13 @@
+[package]
+name = "zenith-ui"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "zenith_ui"
+path = "src/lib.rs"
+
+[dependencies]
+gpui.workspace = true
+gpui-component.workspace = true
+zenith-core.workspace = true
